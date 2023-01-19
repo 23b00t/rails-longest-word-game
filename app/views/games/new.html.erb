@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="letters">
+    <% @letters.each do |letter| %>
+      <span> <%= letter %> </span>
+    <% end %>
+  </div>
+</div>
+
+<div class="container input">
+  <form action="/score" method="POST" data-turbo="false" label="Your word:">
+    <div class="form-group">
+      <label for="guess">Your answer: </label>
+      <input id="guess" type="text" name="guess" placeholder="Your answer..." class="form-control" >
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <%= hidden_field_tag :letters, @letters %>
+    </div>
+    <div>
+      <input type="submit" class="btn btn-primary" style="margin-top: 8px" value="Submit!">
+    </div>
+  </form>
+</div>
