@@ -3,7 +3,7 @@ require 'json'
 
 class GamesController < ApplicationController
   def new
-    @letters = ('A'..'Z').to_a.shuffle.take(9)
+    @letters = (0..9).map { ('A'..'Z').to_a.sample }
   end
 
   def score
@@ -16,14 +16,14 @@ class GamesController < ApplicationController
 
   def valid?
     test = []
-    @guess.chars.compact.each do |letter|
-      test << @letters.match?(letter.upcase)
-      @letters.delete(letter)
+    letters = @letters.dup
+    @guess.delete(' ').chars.each do |letter|
+      test << letters.match?(letter.upcase)
+      letters.delete!(letter.upcase)
     end
 
     url = "https://wagon-dictionary.herokuapp.com/#{@guess}"
-    result = Net::HTTP.get(URI(url))
-    parsed = JSON.parse(result)
+    parsed = JSON.parse(Net::HTTP.get(URI(url)))
     return false if !parsed['found'] || test.include?(false)
 
     true

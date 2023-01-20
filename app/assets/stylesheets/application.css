@@ -16,8 +16,7 @@
 
  .letters {
   display: flex;
-  justify-content:space-around;
-  margin: 32px;
+  justify-content:space-between;
   padding: 32px;
 }
 
@@ -35,6 +34,7 @@ span {
   align-items: center;
   justify-content: center;
   line-height: 80px;
+  margin: 32px;
 }
 
 .input {
